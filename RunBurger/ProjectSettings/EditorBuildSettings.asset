@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: bc9a8d4de6474fa47a7852f9c75e463d
   - enabled: 1
-    path: Assets/Scenes/FirstFase.unity
+    path: Assets/Scenes/FirstPhase.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/GameOverFire.unity
