@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
-    // Start is called before the first frame update
     void Start() {
 
         anim = GetComponent<Animator>();

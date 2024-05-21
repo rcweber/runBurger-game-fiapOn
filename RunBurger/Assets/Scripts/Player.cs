@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] Animator anim; 
     public Enemy enemy;
     public GameController controller;
+    public WinnerManager winner;
     private SpriteRenderer sprite;
 
 
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
 
         enemy.gameObject.SetActive(false);
         controller.startTime = false;
+        winner.gameObject.SetActive(false);
     }
     void FixedUpdate() {
 
@@ -41,8 +43,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Exit")
         {
 
-            anim.SetBool("winner", true);
-            anim.Play("Victory");
+            winner.gameObject.SetActive(true);
             Destroy(enemy);
             Destroy(gameObject);
         }

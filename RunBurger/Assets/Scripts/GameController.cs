@@ -6,26 +6,20 @@ public class GameController : MonoBehaviour
 {   
 
     public static GameController instance;
+    public Player player;
     public Text timeText;
     public float timeCount;
     public bool timeOver = false;
     public bool startTime = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
-    {
-        TimeCount();
+    {   
+        if (player != null)
+            TimeCount();
     }
 
     public void RefreshScreen() { 
     
-        timeText.text = timeCount.ToString("F0");
-    
+        timeText.text = timeCount.ToString("F0");    
     }
 
     public void TimeCount() { 
