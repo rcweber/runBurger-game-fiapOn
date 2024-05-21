@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     //[SerializeField] private Button ButtonExit;
     public void PlayGame() {
 
-        SceneManager.LoadScene("FirstFase");
+        SceneManager.LoadScene("FirstPhase");
     }
     public void QuitGame() {
 
