@@ -6,7 +6,8 @@ public class Player : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] Rigidbody2D rgBody;
     [SerializeField] Animator anim; 
-    [SerializeField] Enemy enemy;
+    public Enemy enemy;
+    public GameController controller;
     private SpriteRenderer sprite;
 
 
@@ -14,8 +15,10 @@ public class Player : MonoBehaviour
 
         rgBody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        enemy = GetComponent<Enemy>();
         sprite = GetComponent<SpriteRenderer>();
+
+        enemy.gameObject.SetActive(false);
+        controller.startTime = false;
     }
     void FixedUpdate() {
 
@@ -49,6 +52,12 @@ public class Player : MonoBehaviour
             sprite.color = Color.black;            
             Invoke("DestroyPlayerAndEnemy", 1.5f);
             SceneManager.LoadScene("GameOverFire");
+        }
+
+        if (collision.gameObject.tag == "Start") {
+
+            controller.startTime = true;
+            enemy.gameObject.SetActive(true);
         }
     }
 
