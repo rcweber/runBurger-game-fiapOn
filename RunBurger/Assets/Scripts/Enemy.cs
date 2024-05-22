@@ -13,25 +13,21 @@ public class Enemy : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
-
-    // Update is called once per frame
     void FixedUpdate() {
 
         FollowTarget();        
     }
 
-    void FollowTarget()
-    {
-        if (agent != null)
-        {
+    void FollowTarget() {
+
+        if (agent != null) {
             agent.SetDestination(target.position);
         }
     }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
+    void OnTriggerEnter2D(Collider2D collision) {
 
-        if (collision.gameObject.tag == "Player")
-        {         
+        if (collision.gameObject.tag == "Player") {      
+            
             Destroy(gameObject);
         }
     }

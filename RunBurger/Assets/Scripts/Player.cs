@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     public GameController controller;
     public WinnerManager winner;
     private SpriteRenderer sprite;
+    public GameObject prefabVictory;
 
 
     void Start() {
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
         enemy.gameObject.SetActive(false);
         controller.startTime = false;
         winner.gameObject.SetActive(false);
+        prefabVictory.gameObject.SetActive(false);
     }
     void FixedUpdate() {
 
@@ -37,19 +40,22 @@ public class Player : MonoBehaviour
 
         transform.position = transform.position + movement * speed * Time.deltaTime;
     }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
+    void OnTriggerEnter2D(Collider2D collision) {
 
-        if (collision.gameObject.tag == "Exit")
-        {
+        if (collision.gameObject.tag == "Exit") {
 
-            winner.gameObject.SetActive(true);
+            GameObject.FindGameObjectWithTag("Labirinto").SetActive(false);
+            GameObject.FindGameObjectWithTag("Enemy").SetActive(false);
+            GameObject.FindGameObjectWithTag("Timer").SetActive(false);
+            prefabVictory.gameObject.SetActive(true);
+            winner.gameObject.SetActive(true);            
             Destroy(enemy);
             Destroy(gameObject);
+
         }
 
-        if (collision.gameObject.tag == "ColliderEnemy")
-        {
+        if (collision.gameObject.tag == "ColliderEnemy") {
+
             sprite.color = Color.black;            
             Invoke("DestroyPlayerAndEnemy", 1.5f);
             SceneManager.LoadScene("GameOverFire");

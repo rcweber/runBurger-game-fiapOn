@@ -3,7 +3,9 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class BlinkingText : MonoBehaviour
-{
+{   
+    //Classe responsável por piscar o texto de vitória - ainda não implementada
+
     Text textToBlink;
     void Start() {   
 

@@ -8,6 +8,10 @@ TagManager:
   - Exit
   - ColliderEnemy
   - Start
+  - Labirinto
+  - Enemy
+  - Timer
+  - VictoryAnimation
   layers:
   - Default
   - TransparentFX

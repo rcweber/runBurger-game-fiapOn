@@ -11,8 +11,8 @@ public class GameController : MonoBehaviour
     public float timeCount;
     public bool timeOver = false;
     public bool startTime = false;
-    void Update()
-    {   
+    void Update() {
+        
         if (player != null)
             TimeCount();
     }
