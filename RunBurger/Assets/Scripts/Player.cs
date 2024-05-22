@@ -1,4 +1,3 @@
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,15 +5,18 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] Rigidbody2D rgBody;
-    [SerializeField] Animator anim; 
+    [SerializeField] Animator anim;
     public Enemy enemy;
     public GameController controller;
     public WinnerManager winner;
     private SpriteRenderer sprite;
     public GameObject prefabVictory;
+    public int coins;
+    public int totalCoins;
 
 
-    void Start() {
+    void Start()
+    {
 
         rgBody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -25,15 +27,18 @@ public class Player : MonoBehaviour
         winner.gameObject.SetActive(false);
         prefabVictory.gameObject.SetActive(false);
     }
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
 
         ProcessInput();
+        CoinsCount();
     }
 
-    void ProcessInput() {
+    void ProcessInput()
+    {
 
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
-        
+
         anim.SetFloat("Horizontal", movement.x);
         anim.SetFloat("Vertical", movement.y);
         anim.SetFloat("Speed", movement.magnitude);
@@ -44,27 +49,37 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.tag == "Exit") {
 
+            controller.coinsCount = coins + totalCoins;
+            
             GameObject.FindGameObjectWithTag("Labirinto").SetActive(false);
             GameObject.FindGameObjectWithTag("Enemy").SetActive(false);
             GameObject.FindGameObjectWithTag("Timer").SetActive(false);
-            prefabVictory.gameObject.SetActive(true);
-            winner.gameObject.SetActive(true);            
-            Destroy(enemy);
-            Destroy(gameObject);
 
+            prefabVictory.gameObject.SetActive(true);
+            winner.gameObject.SetActive(true);
+
+            Invoke("DestroyPlayerAndEnemy", 0f);
         }
 
-        if (collision.gameObject.tag == "ColliderEnemy") {
+        if (collision.gameObject.tag == "ColliderEnemy")
+        {
 
-            sprite.color = Color.black;            
             Invoke("DestroyPlayerAndEnemy", 1.5f);
             SceneManager.LoadScene("GameOverFire");
         }
 
-        if (collision.gameObject.tag == "Start") {
+        if (collision.gameObject.tag == "Start")
+        {
 
             controller.startTime = true;
             enemy.gameObject.SetActive(true);
+        }
+
+        if (collision.gameObject.tag == "Coin")
+        {
+
+            Destroy(collision.gameObject);
+            coins++;
         }
     }
 
@@ -72,5 +87,11 @@ public class Player : MonoBehaviour
 
         Destroy(enemy);
         Destroy(gameObject);
+    }
+
+    void CoinsCount() {
+
+        controller.coinsCount = coins;
+        totalCoins = ((int)controller.timeCount);
     }
 }

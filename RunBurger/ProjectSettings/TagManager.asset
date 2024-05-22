@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Timer
   - VictoryAnimation
+  - Coin
   layers:
   - Default
   - TransparentFX

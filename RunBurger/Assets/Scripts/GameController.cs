@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     public float timeCount;
     public bool timeOver = false;
     public bool startTime = false;
+    public Text coinsText;
+    public float coinsCount;
     void Update() {
         
         if (player != null)
@@ -19,7 +21,8 @@ public class GameController : MonoBehaviour
 
     public void RefreshScreen() { 
     
-        timeText.text = timeCount.ToString("F0");    
+        timeText.text = timeCount.ToString("F0");
+        coinsText.text = coinsCount.ToString("F0");
     }
 
     public void TimeCount() { 
