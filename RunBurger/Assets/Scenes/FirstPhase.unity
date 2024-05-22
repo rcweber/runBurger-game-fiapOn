@@ -2109,7 +2109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 137.76024, y: 286.2}
+  m_AnchoredPosition: {x: 137.76024, y: 291.5998}
   m_SizeDelta: {x: 480, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &202008449
@@ -2145,7 +2145,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You Win
+  m_Text: Victory
 --- !u!222 &202008450
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7730,7 +7730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759431538160028449, guid: 4fab17d70547bfa458b2da0bb0c440af, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.721
+      value: 1.345
       objectReference: {fileID: 0}
     - target: {fileID: 759431538160028449, guid: 4fab17d70547bfa458b2da0bb0c440af, type: 3}
       propertyPath: m_LocalPosition.z
