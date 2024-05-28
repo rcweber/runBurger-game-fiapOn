@@ -13,14 +13,22 @@ public class GameController : MonoBehaviour
     public bool startTime = false;
     public Text coinsText;
     public float coinsCount;
+
+
+    void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
+    private AudioManager audioManager;
+
     void Update() {
-        
         if (player != null)
             TimeCount();
     }
 
     public void RefreshScreen() { 
-    
+
         timeText.text = timeCount.ToString("F0");
         coinsText.text = coinsCount.ToString("F0");
     }
@@ -35,7 +43,7 @@ public class GameController : MonoBehaviour
             RefreshScreen();
 
             if (timeCount <= 0) { 
-                
+                audioManager.StopPlaying();
                 timeCount = 0;
                 Destroy(GameObject.Find("Player"));
                 Destroy(GameObject.Find("Enemy"));
