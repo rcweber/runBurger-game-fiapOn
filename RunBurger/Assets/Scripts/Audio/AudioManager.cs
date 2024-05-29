@@ -20,8 +20,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayBGM(AudioClip audioClip)
+    public void PlayBGM(AudioClip audioClip, float? bgmAudioVolume)
     {
+        if (bgmAudioVolume != null) audioSource.volume = bgmAudioVolume.Value;
         audioSource.clip = audioClip;
         audioSource.Play();
     }
@@ -29,6 +30,11 @@ public class AudioManager : MonoBehaviour
     public void StopPlaying()
     {
         audioSource.Stop();
+    }
+
+    public void PlayOneShot(AudioClip audioClip, float volume = 0.5f)
+    {
+        audioSource.PlayOneShot(audioClip, volume);
     }
 
 }

@@ -1093,9 +1093,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   areaMin: {x: -2.45, y: 4.57}
   areaMax: {x: 2.51, y: -4.82}
-  waitTime: 1
+  waitTime: 0.01
   startMoveDuration: 0.4
-  endMoveDuration: 2.1
+  endMoveDuration: 1.2
 --- !u!114 &1796944841
 MonoBehaviour:
   m_ObjectHideFlags: 0

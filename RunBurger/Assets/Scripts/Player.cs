@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     private GameController controller;
     private AudioManager audioManager;
     private CameraShake cameraShake;
+    private GlobalController globalController;
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
         controller = FindObjectOfType<GameController>();
         audioManager = FindObjectOfType<AudioManager>();
         cameraShake = FindAnyObjectByType<CameraShake>();
+        globalController = FindObjectOfType<GlobalController>();
 
         enemy.gameObject.SetActive(false);
         controller.startTime = false;
@@ -122,11 +124,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Exit")
         {
             controller.coinsCount = coins + totalCoins;
-            GameObject.FindGameObjectWithTag("Labirinto").SetActive(false);
-            GameObject.FindGameObjectWithTag("Enemy").SetActive(false);
-            GameObject.FindGameObjectWithTag("Timer").SetActive(false);
-
+            audioManager.StopPlaying();
             Invoke(nameof(DestroyPlayerAndEnemy), 0f);
+            SceneManager.LoadSceneAsync("WinnerGameOverFire");
         }
 
         if (collision.gameObject.tag == "ColliderEnemy")
@@ -142,6 +142,8 @@ public class Player : MonoBehaviour
             playerAudioSource.PlayOneShot(starCollectAudioAction, starCollectAudioVolume);
             Destroy(collision.gameObject);
             coins++;
+            // Default value for icon is 1
+            globalController.AddCoin(1);
         }
     }
 
@@ -167,6 +169,6 @@ public class Player : MonoBehaviour
     IEnumerator LoadGameOverFireScene()
     {
         yield return new WaitForSeconds(0.9f);
-        SceneManager.LoadScene("GameOverFire");
+        SceneManager.LoadSceneAsync("GameOverFire");
     }
 }

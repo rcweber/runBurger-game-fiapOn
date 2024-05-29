@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {   
-
-    public static GameController instance;
     public Player player;
     public Text timeText;
     public float timeCount;
@@ -14,10 +12,13 @@ public class GameController : MonoBehaviour
     public Text coinsText;
     public float coinsCount;
 
+    private GlobalController globalController;
+
 
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        globalController = FindAnyObjectByType<GlobalController>();
     }
 
     private AudioManager audioManager;
@@ -40,6 +41,7 @@ public class GameController : MonoBehaviour
         if (!timeOver && timeCount > 0 && startTime) { 
         
             timeCount -= Time.deltaTime;
+            globalController.SetTimeLeft(timeCount);
             RefreshScreen();
 
             if (timeCount <= 0) { 

@@ -12,6 +12,6 @@ public class AudioControl : MonoBehaviour
     {
         audioManager = FindObjectOfType<AudioManager>();
 
-        audioManager.PlayBGM(bgmMusic);
+        audioManager.PlayBGM(bgmMusic, null);
     }
 }

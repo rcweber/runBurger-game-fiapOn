@@ -26,7 +26,7 @@ public class StartController : MonoBehaviour
         {
             controller.startTime = true;
             if (enemy != null)  enemy.gameObject.SetActive(true);
-            if (bgmSceneAudioClip != null && !audioManager.IsPlaying()) audioManager.PlayBGM(bgmSceneAudioClip);
+            if (bgmSceneAudioClip != null && !audioManager.IsPlaying()) audioManager.PlayBGM(bgmSceneAudioClip, null);
         }
     }
    
