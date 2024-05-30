@@ -25,7 +25,7 @@ public class GameOver : MonoBehaviour
     [Header("Prizes size and measure")]
     [SerializeField] private float prizeForMore75PercentageCoinsCollected = 0.4f;
     [SerializeField] private float prizeForMoreEqual30PercentageCoinsCollected = 0.25f;
-    [SerializeField] private float prizeForLessThan30PercentageCoinsCollected = 0.2f;
+    [SerializeField] private float prizeForLessThan30PercentageCoinsCollected = 0.10f;
     [SerializeField] private float prizeCoefficientForBonusfor90PercenteCollectedCouins = 0.5f;
 
     // Private variables
