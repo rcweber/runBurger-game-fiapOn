@@ -133,7 +133,7 @@ public class GameOver : MonoBehaviour
 
     void AddCoinsPerSecond()
     {
-        if (coinsPercentageCollected > 75f)
+        if (coinsPercentageCollected >= 75f)
         {
             finalCoinCount += prizeForMore75PercentageCoinsCollected;
         }
