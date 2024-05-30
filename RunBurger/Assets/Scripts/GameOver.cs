@@ -15,26 +15,31 @@ public class GameOver : MonoBehaviour
     [Header("Text Settings")]
     [SerializeField] private Text coinsText;
     [SerializeField] private Text timeText;
+    [SerializeField] private Text bonusText;
 
     [Header("Countdown settings")]
     [SerializeField] private float waitForSecondsToStarCount = 3f;
     [SerializeField] private float waitForSecondsBetweenCount = 0.05f;
+    [SerializeField] private float waitForSecondsToStartCountBonus = 0.5f;
 
     [Header("Prizes size and measure")]
     [SerializeField] private float prizeForMore75PercentageCoinsCollected = 0.4f;
-    [SerializeField] private float priseForMoreEqual30PercentageCoinsCollected = 0.25f;
-    [SerializeField] private float priseForLessThan30PercentageCoinsCollected = 0.2f;
+    [SerializeField] private float prizeForMoreEqual30PercentageCoinsCollected = 0.25f;
+    [SerializeField] private float prizeForLessThan30PercentageCoinsCollected = 0.2f;
+    [SerializeField] private float prizeCoefficientForBonusfor90PercenteCollectedCouins = 0.5f;
 
     // Private variables
-    private float totalTimeRemaining;
-    private float timeRemaining;
-    private float totalCoincCollected;
-    private float totalCoinsInLevel;
-    private float finalCoinCount;
-    private float coinsPercentageCollected;
-    private AudioManager audioManager;
+    public float totalTimeRemaining;
+    public float timeRemaining;
+    public float totalCoincCollected;
+    public float totalCoinsInLevel;
+    public float finalCoinCount;
+    public float bonusTotal = 0f;
+    public float bonusRemaining = 0f;
+    public float coinsPercentageCollected;
+    public AudioManager audioManager;
 
-    private GlobalController globalController;
+    public GlobalController globalController;
 
     void Start()
     {
@@ -54,14 +59,20 @@ public class GameOver : MonoBehaviour
         coinsPercentageCollected = totalCoincCollected / totalCoinsInLevel * 100;
         finalCoinCount = totalCoincCollected;
 
-        UpdateText(totalCoincCollected, totalTimeRemaining);
+        // Bonus calculation
+        if (coinsPercentageCollected >= 90f)
+        {
+            bonusTotal = Mathf.FloorToInt(totalTimeRemaining * prizeCoefficientForBonusfor90PercenteCollectedCouins);
+            bonusRemaining = bonusTotal;
+        }
+        UpdateText(totalCoincCollected, totalTimeRemaining, bonusTotal);
 
-        StartCoroutine(CountDownCoRoutine());
+        StartCoroutine(CountDownTimeLeftCalculationCoRoutine());
     }
 
     void RefreschScreen()
     {
-        UpdateText(finalCoinCount, timeRemaining);
+        UpdateText(finalCoinCount, timeRemaining, bonusRemaining);
     }
 
     void Update()
@@ -69,13 +80,14 @@ public class GameOver : MonoBehaviour
         RefreschScreen();
     }
 
-    void UpdateText(float coin, float time)
+    void UpdateText(float coin, float time, float bonus)
     {
         // showing the current time and coin
-        coinsText.text = coin.ToString("F2");
-        timeText.text = time.ToString();
+        if (coinsText != null) coinsText.text = coin.ToString("F2");
+        if (bonusText != null) bonusText.text = ((int)bonus).ToString();
+        if (timeText != null) timeText.text = time.ToString();
     }
-    IEnumerator CountDownCoRoutine()
+    IEnumerator CountDownTimeLeftCalculationCoRoutine()
     {
         yield return new WaitForSeconds(waitForSecondsToStarCount);
 
@@ -94,13 +106,29 @@ public class GameOver : MonoBehaviour
             }
             else break;
         }
-
-        if (coinsPercentageCollected >= 90f)
-        {
-            finalCoinCount += Mathf.FloorToInt(totalTimeRemaining * 0.5f);
-        }
         RefreschScreen();
-        Debug.Log("Total Final de Moedas: " + finalCoinCount.ToString("F2"));
+
+        if (bonusTotal > 0) StartCoroutine(CountDownBonusCalculationCoRoutine());
+    }
+
+    IEnumerator CountDownBonusCalculationCoRoutine()
+    {
+        yield return new WaitForSeconds(waitForSecondsToStartCountBonus);
+
+        while (bonusRemaining >= 0)
+        {
+            if (bonusRemaining > 0)
+            {
+                bonusRemaining--;
+
+                finalCoinCount++;
+                RefreschScreen();
+                audioManager.PlayOneShot(coinAudioClip, coinAudioClipVoluyme);
+                yield return new WaitForSeconds(waitForSecondsBetweenCount);
+            }
+            else break;
+            RefreschScreen();
+        }
     }
 
     void AddCoinsPerSecond()
@@ -111,9 +139,9 @@ public class GameOver : MonoBehaviour
         }
         else if (coinsPercentageCollected >= 30f)
         {
-            finalCoinCount += priseForMoreEqual30PercentageCoinsCollected;
+            finalCoinCount += prizeForMoreEqual30PercentageCoinsCollected;
         }
-        else finalCoinCount += priseForLessThan30PercentageCoinsCollected;
+        else finalCoinCount += prizeForLessThan30PercentageCoinsCollected;
     }
 
     public void PlayGame()

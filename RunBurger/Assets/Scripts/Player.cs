@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
 
         enemy.gameObject.SetActive(false);
         controller.startTime = false;
+
+        // Reseting the counters
+        globalController.ResetCounts();
     }
 
     public void Update()
@@ -123,8 +126,9 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Exit")
         {
-            controller.coinsCount = coins + totalCoins;
+            //controller.coinsCount = coins + totalCoins;
             audioManager.StopPlaying();
+            enemy.StopEnemy();
             Invoke(nameof(DestroyPlayerAndEnemy), 0f);
             SceneManager.LoadSceneAsync("WinnerGameOverFire");
         }

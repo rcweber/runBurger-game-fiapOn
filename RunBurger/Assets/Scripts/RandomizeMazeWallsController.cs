@@ -14,7 +14,9 @@ public class RandomizeMazeWallsController : MonoBehaviour
     [SerializeField] private float proximityRange = 1f;
     [SerializeField] private float minTime = 1f;
     [SerializeField] private float maxTime = 5f;
-    [SerializeField] private float disapearingLifeTime = 5f;
+    [SerializeField] private float disapearingLifeTimeStartSeconds = 4f;
+    [SerializeField] private float disapearingLifeTimeEndSeconds = 7f;
+
     [SerializeField] private float fadeDuration = 0.5f;
 
     // Private variables
@@ -74,8 +76,12 @@ public class RandomizeMazeWallsController : MonoBehaviour
             float playerDistance = Vector3.Distance(wall.transform.position, playerGameObject.transform.position);
             float enemyDistance = Vector3.Distance(wall.transform.position, enemyGameObject.transform.position);
 
-            if (playerDistance <= proximityRange || enemyDistance <= proximityRange)
+            if (playerDistance <= proximityRange)
             {
+                nearbyWalls.Add(wall);
+            }
+
+            if (enemyDistance <= proximityRange) {
                 nearbyWalls.Add(wall);
             }
         }
@@ -104,7 +110,7 @@ public class RandomizeMazeWallsController : MonoBehaviour
             obstacle.carving = false;
         }
 
-        yield return new WaitForSeconds(disapearingLifeTime);
+        yield return new WaitForSeconds(Random.Range(disapearingLifeTimeStartSeconds, disapearingLifeTimeEndSeconds));
         StartCoroutine(FadeIn(wall));
     }
 
