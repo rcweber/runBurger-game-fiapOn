@@ -47,7 +47,7 @@ public class GameOver : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
 
         // Starting the BGM
-        audioManager.PlayBGM(bgmWinnerMusic, bgmAudioClipVolume);
+        if (audioManager != null && bgmWinnerMusic != null) audioManager.PlayBGM(bgmWinnerMusic, bgmAudioClipVolume);
 
         // showing the time and coins of player
         totalCoincCollected = Mathf.CeilToInt(globalController.GetTotalCoins());
@@ -146,12 +146,12 @@ public class GameOver : MonoBehaviour
 
     public void PlayGame()
     {
-        audioManager.StopPlaying();
+        if (audioManager != null) audioManager.StopPlaying();
         SceneManager.LoadScene("FirstPhase");
     }
     public void QuitGame()
     {
-        audioManager.StopPlaying();
+        if (audioManager != null) audioManager.StopPlaying();
         Application.Quit();
     }
 }
