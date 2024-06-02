@@ -792,6 +792,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PlayGame
       objectReference: {fileID: 0}
+    - target: {fileID: 4112816754421114637, guid: 70fed7a75d16042928de31602875356b, type: 3}
+      propertyPath: m_fontSize
+      value: 38.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112816754421114637, guid: 70fed7a75d16042928de31602875356b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 38.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1461,6 +1469,14 @@ PrefabInstance:
       value: 'Exit
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112816754421114637, guid: 70fed7a75d16042928de31602875356b, type: 3}
+      propertyPath: m_fontSize
+      value: 36.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112816754421114637, guid: 70fed7a75d16042928de31602875356b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
