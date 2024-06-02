@@ -24,13 +24,18 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        volumeOn.gameObject.SetActive(audioOn);
-        volumeOff.gameObject.SetActive(audioOff);
+        if (volumeOn != null && volumeOff != null)
+        {
+            volumeOn.gameObject.SetActive(audioOn);
+            volumeOff.gameObject.SetActive(audioOff);
+        }
     }
     private void Update()
     {
-        volumeOn.gameObject.SetActive(audioOn);
-        volumeOff.gameObject.SetActive(audioOff);
+        if (volumeOn != null && volumeOff != null) { 
+            volumeOn.gameObject.SetActive(audioOn);
+            volumeOff.gameObject.SetActive(audioOff);
+        }
     }
     public void PlayBGM(AudioClip audioClip, float? bgmAudioVolume)
     {   
