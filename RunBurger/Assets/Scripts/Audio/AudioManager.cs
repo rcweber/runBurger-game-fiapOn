@@ -47,13 +47,19 @@ public class AudioManager : MonoBehaviour
 
     public void StopPlaying()
     {       
+        
+        audioSource.Stop();
+    }
+
+    public void StopPlayingMainMenu()
+    {
         audioOn = !audioOn;
         audioOff = !audioOff;
 
         if (audioOff)
             audioSource.Stop();
 
-        if(audioOn)
+        if (audioOn)
             audioSource.Play();
     }
 

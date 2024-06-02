@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b16e5e6d08161419313accdac29eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopContainer: {fileID: 1759811658}
+  shopContainer: {fileID: 870272909}
   shopBackground: {fileID: 1927890187}
   buttonsContainer: {fileID: 1274466702}
 --- !u!1 &397151939
@@ -832,7 +832,7 @@ GameObject:
   - component: {fileID: 870272911}
   - component: {fileID: 870272910}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1279,7 +1279,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1454766857}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: StopPlaying
+        m_MethodName: StopPlayingMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1562,7 +1562,7 @@ GameObject:
   - component: {fileID: 1274466704}
   - component: {fileID: 1274466703}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

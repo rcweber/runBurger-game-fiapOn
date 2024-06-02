@@ -27,15 +27,15 @@ public class MainMenu : MonoBehaviour
         shopContainer.gameObject.SetActive(true);
         shopBackground.gameObject.SetActive(true);
         buttonsContainer.gameObject.SetActive(false);
-    }
-    public void QuitGame() 
-    {
-        Application.Quit();
-    }
+    }   
     public void CloseBG()
     {
         shopContainer.gameObject.SetActive(false);
         shopBackground.gameObject.SetActive(false);
         buttonsContainer.gameObject.SetActive(true);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
