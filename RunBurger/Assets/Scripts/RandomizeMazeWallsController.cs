@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +9,7 @@ public class RandomizeMazeWallsController : MonoBehaviour
 
     [Header("Actors Configuration")]
     [SerializeField] private GameObject playerGameObject;
-    [SerializeField] private GameObject enemyGameObject;
+    [SerializeField] private List<GameObject> enemyListGameObject;
 
     [Header("rRansition settings")]
     [SerializeField] private float proximityRange = 1f;
@@ -26,11 +27,12 @@ public class RandomizeMazeWallsController : MonoBehaviour
     void Start()
     {
         hideableWalls = new List<GameObject>(GameObject.FindGameObjectsWithTag("Hideable"));
-        
+        enemyListGameObject = FindObjectsOfType<Enemy>().ToList().Select(x => x.gameObject).ToList();
+
         StartCoroutine(ManageWalls());
     }
 
-   IEnumerator ManageWalls()
+    IEnumerator ManageWalls()
     {
         while (true)
         {
@@ -69,27 +71,33 @@ public class RandomizeMazeWallsController : MonoBehaviour
     {
         List<GameObject> nearbyWalls = new();
 
-        if (playerGameObject == null || enemyGameObject == null) return new List<GameObject>();
+        if (playerGameObject == null || enemyListGameObject == null) return new List<GameObject>();
 
         foreach (GameObject wall in hideableWalls)
         {
-            float playerDistance = Vector3.Distance(wall.transform.position, playerGameObject.transform.position);
-            float enemyDistance = Vector3.Distance(wall.transform.position, enemyGameObject.transform.position);
 
-            if (playerDistance <= proximityRange)
+            foreach (GameObject enemy in enemyListGameObject)
             {
-                nearbyWalls.Add(wall);
-            }
 
-            if (enemyDistance <= proximityRange) {
-                nearbyWalls.Add(wall);
+                float playerDistance = Vector3.Distance(wall.transform.position, playerGameObject.transform.position);
+                float enemyDistance = Vector3.Distance(wall.transform.position, enemy.transform.position);
+
+                if (playerDistance <= proximityRange)
+                {
+                    nearbyWalls.Add(wall);
+                }
+
+                if (enemyDistance <= proximityRange)
+                {
+                    nearbyWalls.Add(wall);
+                }
             }
         }
 
         return nearbyWalls;
     }
 
-     IEnumerator FadeOut(GameObject wall)
+    IEnumerator FadeOut(GameObject wall)
     {
         Material material = wall.GetComponent<Renderer>().material;
         Color startColor = material.color;

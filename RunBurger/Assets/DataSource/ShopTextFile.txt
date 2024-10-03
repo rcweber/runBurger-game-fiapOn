@@ -1,0 +1,14 @@
+Nossa ideia para essa cena eh de ser o sistema de monetizacao, onde:
+
+ - Criaremos um modelo de compra de recursos, nos quais inicialmente seriam: 
+	- Boost para o personagem;
+	- vida extra para o personagem, se ele for pego pelo inimigo;
+	- tempo extra para o personagem, se o tempo acabar;
+	- Item de paralizacao do inimigo;
+	- trilha para o caminho mais rapido de saida do labirinto;
+
+ - Criaremos um modelo de conversao das moedas conquistadas no game para as burger coins, que sao as moedas que podem comprar esses recusros acima;
+
+ - Criaremos um modelo de compra de burger coins, com pacotes que variam de r$1,90 a r$9,90, sendo esse, o principal mecanismo de monetizacao;
+
+ - Teremos um item de adsense free, pois iremos implementar adsense, que sera mostrado toda vez que o personagem perde ou vence o game, sendo possivel comprar esse adsense free, e com isso, nao seriam mais mostrados os anuncios.

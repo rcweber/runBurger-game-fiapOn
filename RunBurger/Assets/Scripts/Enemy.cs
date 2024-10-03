@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -19,7 +18,6 @@ public class Enemy : MonoBehaviour
     }
     void FixedUpdate()
     {
-
         FollowTarget();
     }
 
@@ -35,7 +33,6 @@ public class Enemy : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-
             Destroy(gameObject);
         }
     }

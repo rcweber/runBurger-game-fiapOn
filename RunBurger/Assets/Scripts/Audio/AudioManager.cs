@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     private bool audioOn = true;
     private bool audioOff = false;
     public bool IsPlaying() => audioSource.isPlaying;
+    public bool TurnAudioOnOff() => audioOn = !audioOn;
 
     private void Awake()
     {
@@ -47,7 +48,6 @@ public class AudioManager : MonoBehaviour
 
     public void StopPlaying()
     {       
-        
         audioSource.Stop();
     }
 

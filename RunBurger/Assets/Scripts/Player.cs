@@ -1,11 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     [Header("Player Settings")]
-    public Enemy enemy;
+    public List<Enemy> enemyList;
     public int coins;
     public int totalCoins;
     [SerializeField] float speed;
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
     private AudioManager audioManager;
     private CameraShake cameraShake;
     private GlobalController globalController;
+    private InputManager inputManager;
 
     void Start()
     {
@@ -40,12 +43,16 @@ public class Player : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         cameraShake = FindAnyObjectByType<CameraShake>();
         globalController = FindObjectOfType<GlobalController>();
+        enemyList = FindObjectsOfType<Enemy>().ToList();
 
-        enemy.gameObject.SetActive(false);
+        enemyList.ForEach(x => x.gameObject.SetActive(false));
         controller.startTime = false;
 
         // Reseting the counters
         globalController.ResetCounts();
+
+        // Input Manager
+        inputManager = new();
     }
 
     public void Update()
@@ -62,7 +69,10 @@ public class Player : MonoBehaviour
 
     void ProcessInput()
     {
-        _direction = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        // Esse é o método antigo de captação de movimento do player
+        // _direction = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        
+        _direction = inputManager.Movement;
     }
 
     private void OnMove()
@@ -128,7 +138,7 @@ public class Player : MonoBehaviour
         {
             //controller.coinsCount = coins + totalCoins;
             audioManager.StopPlaying();
-            enemy.StopEnemy();
+            enemyList.ForEach(x => x.StopEnemy());
             Invoke(nameof(DestroyPlayerAndEnemy), 0f);
             SceneManager.LoadSceneAsync("WinnerGameOverFire");
         }
@@ -160,7 +170,7 @@ public class Player : MonoBehaviour
 
     private void DestroyPlayerAndEnemy()
     {
-        Destroy(enemy);
+        enemyList.ForEach(x => Destroy(x));
         Destroy(gameObject);
     }
 
