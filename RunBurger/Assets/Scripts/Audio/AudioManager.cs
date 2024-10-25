@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
-    private static AudioManager instance;
+    public static AudioManager instance;
     [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private Image volumeOn;
@@ -12,6 +12,12 @@ public class AudioManager : MonoBehaviour
     private bool audioOff = false;
     public bool IsPlaying() => audioSource.isPlaying;
     public bool TurnAudioOnOff() => audioOn = !audioOn;
+    public bool GetTurnAudioOnOff() => audioOn;
+
+    void Start()
+    {
+        if (audioSource != null) audioSource.loop = true;
+    }
 
     private void Awake()
     {
@@ -33,21 +39,22 @@ public class AudioManager : MonoBehaviour
     }
     private void Update()
     {
-        if (volumeOn != null && volumeOff != null) { 
+        if (volumeOn != null && volumeOff != null)
+        {
             volumeOn.gameObject.SetActive(audioOn);
             volumeOff.gameObject.SetActive(audioOff);
         }
     }
     public void PlayBGM(AudioClip audioClip, float? bgmAudioVolume)
-    {   
+    {
         if (bgmAudioVolume != null) audioSource.volume = bgmAudioVolume.Value;
         audioSource.clip = audioClip;
         audioSource.Play();
-       
+
     }
 
     public void StopPlaying()
-    {       
+    {
         audioSource.Stop();
     }
 
@@ -57,13 +64,25 @@ public class AudioManager : MonoBehaviour
         audioOff = !audioOff;
 
         if (audioOff)
+        {
             audioSource.Stop();
+            audioSource.gameObject.SetActive(false);
+        }
 
         if (audioOn)
             audioSource.Play();
+        audioSource.gameObject.SetActive(true);
     }
 
-    public void PlayOneShot(AudioClip audioClip, float volume = 0.5f)
+    public void PauseBGM() {
+        audioSource.Pause();
+    }
+
+    public void ResumeBGM() {
+        audioSource.UnPause();
+    }
+
+    public void PlaySFX(AudioClip audioClip, float volume = 0.5f)
     {
         audioSource.PlayOneShot(audioClip, volume);
     }

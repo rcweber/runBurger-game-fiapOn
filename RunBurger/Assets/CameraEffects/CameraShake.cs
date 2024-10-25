@@ -9,8 +9,8 @@ public class CameraShake : MonoBehaviour
     private CinemachineVirtualCamera cinemachineVirtualCamera;
 
     [Header("Camera Shake Settings")]
-    [SerializeField] private float shakeIntensity = 1f;
-    [SerializeField] private float shakeTime = 0.2f;
+    [SerializeField] private float shakeIntensity = 0.8f;
+    [SerializeField] private float shakeTime = 0.1f;
 
     [Header("Debug Mode")]
     [SerializeField] private bool isDebugMode = true;
@@ -51,13 +51,13 @@ public class CameraShake : MonoBehaviour
             {
                 ShakeCamera();
             }
+        }
 
-            if (timer > 0)
-            {
-                timer -= Time.deltaTime;
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
 
-                if (timer <= 0) StopShake();
-            }
+            if (timer <= 0) StopShake();
         }
     }
 
