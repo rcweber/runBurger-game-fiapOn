@@ -200,8 +200,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07434707, y: 0.07434707, z: 0.07434707}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8635685797168951969}
   - {fileID: 5301161604379063292}
@@ -293,7 +293,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.06, y: 0.12}
   serializedVersion: 2
-  m_Radius: 0.89
+  m_Radius: 0.77
 --- !u!50 &5725321733652369088
 Rigidbody2D:
   serializedVersion: 4
@@ -473,10 +473,10 @@ MonoBehaviour:
   isDead: 0
   isBlocked: 0
   starCollectAudioAction: {fileID: 8300000, guid: e3aa118870f9e40a6ab37c475d02bf3d, type: 3}
-  starCollectAudioVolume: 0.8
+  starCollectAudioVolume: 0.9
   deathAudioAction: {fileID: 8300000, guid: f360be0b1b8c54d138e228d1f14d9f8d, type: 3}
   OutSoundAction: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
-  deathAudioVolume: 0.8
+  deathAudioVolume: 0.9
   hurtAudioAction: {fileID: 8300000, guid: 5d06712fd6b9246adb916bc1e9740463, type: 3}
   arrow: {fileID: 4459664474186591428}
   circle: {fileID: 3476863533680719937}
@@ -487,6 +487,7 @@ MonoBehaviour:
   boostMultiplier: 1.4
   boostDuration: 5
   boostCooldown: 10
+  boostedAnimationSpeed: 2.2
 --- !u!114 &943464215773594522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +561,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1401ee40-df4e-441a-9472-1dacc91a78f7
     m_ActionName: GamePlay/BoostVelocity[/XboxOneGampadMacOSWireless/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9133173497985179029}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: ExitPauseCallbackContext
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bb976fe9-233d-441c-85e5-a6d2e103fb41
+    m_ActionName: GamePlay/PauseExit[/XboxOneGampadMacOSWireless/buttonEast]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: PlayerOne
   m_DefaultActionMap: GamePlay

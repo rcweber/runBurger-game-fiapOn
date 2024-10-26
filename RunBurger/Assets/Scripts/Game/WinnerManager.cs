@@ -17,7 +17,7 @@ public class WinnerManager : MonoBehaviour
 
     public void PlayGame() {
 
-        SceneManager.LoadScene("FirstPhase");
+        SceneManager.LoadScene("FirstPhase_BattleArena");
     }
     public void QuitGame() {
 

@@ -53,6 +53,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseExit"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb976fe9-233d-441c-85e5-a6d2e103fb41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -814,6 +823,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""BoostVelocity"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7fbf2746-e468-4056-8e2e-7fdde601b4b5"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlayerTwo;PlayerOne;Controller"",
+                    ""action"": ""PauseExit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -880,6 +900,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_GamePlay_Movement = m_GamePlay.FindAction("Movement", throwIfNotFound: true);
         m_GamePlay_Pause = m_GamePlay.FindAction("Pause", throwIfNotFound: true);
         m_GamePlay_BoostVelocity = m_GamePlay.FindAction("BoostVelocity", throwIfNotFound: true);
+        m_GamePlay_PauseExit = m_GamePlay.FindAction("PauseExit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -944,6 +965,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GamePlay_Movement;
     private readonly InputAction m_GamePlay_Pause;
     private readonly InputAction m_GamePlay_BoostVelocity;
+    private readonly InputAction m_GamePlay_PauseExit;
     public struct GamePlayActions
     {
         private @PlayerControls m_Wrapper;
@@ -951,6 +973,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_GamePlay_Movement;
         public InputAction @Pause => m_Wrapper.m_GamePlay_Pause;
         public InputAction @BoostVelocity => m_Wrapper.m_GamePlay_BoostVelocity;
+        public InputAction @PauseExit => m_Wrapper.m_GamePlay_PauseExit;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -969,6 +992,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @BoostVelocity.started += instance.OnBoostVelocity;
             @BoostVelocity.performed += instance.OnBoostVelocity;
             @BoostVelocity.canceled += instance.OnBoostVelocity;
+            @PauseExit.started += instance.OnPauseExit;
+            @PauseExit.performed += instance.OnPauseExit;
+            @PauseExit.canceled += instance.OnPauseExit;
         }
 
         private void UnregisterCallbacks(IGamePlayActions instance)
@@ -982,6 +1008,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @BoostVelocity.started -= instance.OnBoostVelocity;
             @BoostVelocity.performed -= instance.OnBoostVelocity;
             @BoostVelocity.canceled -= instance.OnBoostVelocity;
+            @PauseExit.started -= instance.OnPauseExit;
+            @PauseExit.performed -= instance.OnPauseExit;
+            @PauseExit.canceled -= instance.OnPauseExit;
         }
 
         public void RemoveCallbacks(IGamePlayActions instance)
@@ -1040,5 +1069,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnBoostVelocity(InputAction.CallbackContext context);
+        void OnPauseExit(InputAction.CallbackContext context);
     }
 }

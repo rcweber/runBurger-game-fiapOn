@@ -1,18 +1,15 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     [SerializeField] private AudioSource audioSource;
 
-    [SerializeField] private Image volumeOn;
-    [SerializeField] private Image volumeOff;
-    private bool audioOn = true;
-    private bool audioOff = false;
     public bool IsPlaying() => audioSource.isPlaying;
-    public bool TurnAudioOnOff() => audioOn = !audioOn;
-    public bool GetTurnAudioOnOff() => audioOn;
+    public bool TurnAudioOnOff() => musicOn = !musicOn;
+    public bool GetAudioStateOnOff() => musicOn;
+
+    private bool musicOn = true;
 
     void Start()
     {
@@ -30,21 +27,8 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if (volumeOn != null && volumeOff != null)
-        {
-            volumeOn.gameObject.SetActive(audioOn);
-            volumeOff.gameObject.SetActive(audioOff);
-        }
     }
-    private void Update()
-    {
-        if (volumeOn != null && volumeOff != null)
-        {
-            volumeOn.gameObject.SetActive(audioOn);
-            volumeOff.gameObject.SetActive(audioOff);
-        }
-    }
+    
     public void PlayBGM(AudioClip audioClip, float? bgmAudioVolume)
     {
         if (bgmAudioVolume != null) audioSource.volume = bgmAudioVolume.Value;
@@ -58,27 +42,13 @@ public class AudioManager : MonoBehaviour
         audioSource.Stop();
     }
 
-    public void StopPlayingMainMenu()
+    public void PauseBGM()
     {
-        audioOn = !audioOn;
-        audioOff = !audioOff;
-
-        if (audioOff)
-        {
-            audioSource.Stop();
-            audioSource.gameObject.SetActive(false);
-        }
-
-        if (audioOn)
-            audioSource.Play();
-        audioSource.gameObject.SetActive(true);
-    }
-
-    public void PauseBGM() {
         audioSource.Pause();
     }
 
-    public void ResumeBGM() {
+    public void ResumeBGM()
+    {
         audioSource.UnPause();
     }
 

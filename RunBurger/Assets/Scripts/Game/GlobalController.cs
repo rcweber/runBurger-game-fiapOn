@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class GlobalController : MonoBehaviour
@@ -39,6 +34,8 @@ public class GlobalController : MonoBehaviour
     void Start()
     {
         ResetCounts();
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 1;
     }
 
     public void ResetCounts()

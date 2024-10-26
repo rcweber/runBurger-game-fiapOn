@@ -1,11 +1,9 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private AudioManager audioManager;
     // [SerializeField] private GameObject shopContainer;
     [SerializeField] private GameObject shopBackground;
     [SerializeField] private GameObject buttonsContainer;
@@ -28,7 +26,6 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        audioManager = FindObjectOfType<AudioManager>();
         // shopContainer.gameObject.SetActive(false);
         if (shopBackground != null) shopBackground.SetActive(false);
         buttonsContainer.SetActive(true);
@@ -36,7 +33,7 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayGame()
     {
-        audioManager.StopPlaying();
+        AudioManager.instance.StopPlaying();
         GameSessionController.instance.SetGameSessionState(GameSessionController.GameSessionState.Game);
         GameSessionController.instance.SetGameSessionType(GameSessionController.GameSessionType.SinglePlayer);
         SceneManager.LoadSceneAsync("FirstPhase_BattleArena", LoadSceneMode.Single);
@@ -44,7 +41,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayerBattleArena()
     {
-        audioManager.StopPlaying();
+        AudioManager.instance.StopPlaying();
         GameSessionController.instance.SetGameSessionState(GameSessionController.GameSessionState.Game);
         GameSessionController.instance.SetGameSessionType(GameSessionController.GameSessionType.MultiPlayer);
         SceneManager.LoadSceneAsync("FirstPhase_BattleArena", LoadSceneMode.Single);

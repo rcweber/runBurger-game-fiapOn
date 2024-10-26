@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -54,12 +53,11 @@ public class GameManager : MonoBehaviour
     public EventHandler OnMatchStarted;
     public EventHandler OnMatchEnded;
 
-
     public void SetMatchStarted()
     {
         isMatchStarted = true;
         OnMatchStarted?.Invoke(this, EventArgs.Empty);
-        StartCoroutine(BeginScenaMusic());
+        if (AudioManager.instance.GetAudioStateOnOff()) StartCoroutine(BeginSceneMusic());
         // Obtendo o total de icones na cena
         GlobalController.instance.SetTotalInconeInScene(GameObject.FindGameObjectsWithTag("Coin").Length);
     }
@@ -68,6 +66,13 @@ public class GameManager : MonoBehaviour
     {
         isMatchStarted = false;
         OnMatchEnded?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void TimesUp()
+    {
+        var players = FindObjectsOfType<Player>();
+        if (players != null) players.ToList().ForEach(player => player.Dead());
+        playerDatas.ForEach(x => x.PlayerDied = true);
     }
 
     void Awake()
@@ -126,7 +131,8 @@ public class GameManager : MonoBehaviour
     private void OnPlayerDied(object sender, EventArgs e)
     {
         var playerData = playerDatas.FirstOrDefault(playerData => playerData.playerIndex == ((Player)sender).GetPlayerIndex());
-        if (playerData != null) { 
+        if (playerData != null)
+        {
             playerData.PlayerDied = true;
             playerData.PlayerCurrentTime = GameController.instance.GetTimeOnMoment;
         }
@@ -175,12 +181,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadGameOverFireScene()
     {
-        yield return new WaitForSeconds(5.1f);
+        yield return new WaitForSeconds(3.1f);
         Debug.Log("Carregando cena de game over");
         SceneManager.LoadSceneAsync("WinnerGameOverFire");
     }
 
-    private IEnumerator BeginScenaMusic()
+    private IEnumerator BeginSceneMusic()
     {
         while (audioManager.IsPlaying())
         {
@@ -302,6 +308,7 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         if (isCountingDown) return;
+        isPaused = true;
         audioManager.PauseBGM();
         Time.timeScale = 0f;
         pauseCanvas.SetActive(true);

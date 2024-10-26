@@ -1,6 +1,5 @@
 #nullable enable
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -154,7 +153,7 @@ public class GameOverPlayerStats : MonoBehaviour
     public void PlayGame()
     {
         if (AudioManager.instance != null) AudioManager.instance.StopPlaying();
-        SceneManager.LoadScene("FirstPhase");
+        SceneManager.LoadScene("FirstPhase_BattleArena");
     }
     public void QuitGame()
     {

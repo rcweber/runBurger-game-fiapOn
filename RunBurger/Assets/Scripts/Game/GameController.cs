@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -143,8 +140,7 @@ public class GameController : MonoBehaviour
             {
                 audioManager.StopPlaying();
                 timeCount = 0;
-                Destroy(GameObject.Find("Player"));
-                Destroy(GameObject.Find("Enemy"));
+                GameManager.instance.TimesUp();
                 // TODO: Ver como vai ficar a tela final
                 // SceneManager.LoadScene("GameOverFire");
                 timeOver = true;
@@ -154,6 +150,11 @@ public class GameController : MonoBehaviour
 
     private void ShowingTime()
     {
+        if (timeCount <= 0)
+        {
+            timeText.text = "00:00";
+            return;
+        }
         int minutes = Mathf.FloorToInt(timeCount / 60); // Divide o tempo total por 60 para obter os minutos
         int seconds = Mathf.FloorToInt(timeCount % 60); // Usa o resto da divisão por 60 para obter os segundos
 

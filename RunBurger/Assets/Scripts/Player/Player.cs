@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float boostMultiplier = 2f;
     [SerializeField] private float boostDuration = 2f;
     [SerializeField] private float boostCooldown = 5f;
+    [SerializeField] private float boostedAnimationSpeed = 2f;
 
     private SpriteRenderer sprite;
     private Vector2 _direction;
@@ -65,6 +66,7 @@ public class Player : MonoBehaviour
     private bool isInCooldown = false;
     private float boostTimer;
     private float cooldownTimer;
+    private float originalAnimationSpeed;
 
     public float GetTargetAngle() => targetAngle;
     public PlayerInput GetPlayerDeviceInput() => playerInput;
@@ -120,6 +122,8 @@ public class Player : MonoBehaviour
 
         // Reseting the counters
         if (globalController != null) globalController.ResetCounts();
+
+        if (anim != null) originalAnimationSpeed = anim.speed;
     }
 
     public void FixedUpdate()
@@ -137,7 +141,24 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
         {
-            GameManager.instance.PauseGame();
+            if (!GameManager.instance.IsPaused)
+            {
+                GameManager.instance.PauseGame();
+                return;
+            }
+            if (GameManager.instance.IsPaused)
+            {
+                GameManager.instance.ResumeGame();
+                return;
+            }
+        }
+    }
+
+    public void ExitPauseCallbackContext(CallbackContext context)
+    {
+        if (context.performed && GameManager.instance.IsPaused)
+        {
+            GameManager.instance.ResumeGame();
         }
     }
 
@@ -150,6 +171,8 @@ public class Player : MonoBehaviour
             isBoosting = true;
             boostTimer = boostDuration;
             currentSpeed = normalSpeed * boostMultiplier;
+
+            if (anim != null) anim.speed = boostedAnimationSpeed;
         }
     }
 
@@ -178,6 +201,8 @@ public class Player : MonoBehaviour
     {
         isBoosting = false;
         currentSpeed = normalSpeed;
+
+        if (anim != null) anim.speed = originalAnimationSpeed;
 
         // Inicia o cooldown após o boost terminar
         isInCooldown = true;
@@ -248,8 +273,9 @@ public class Player : MonoBehaviour
         Invoke(nameof(DestroyPlayer), 1.1f);
     }
 
-    private void Dead()
+    public void Dead()
     {
+        if (isDead) return;
         isDead = true;
         rgBody.velocity = Vector2.zero;
         cameraShake.ShakeCamera();
@@ -262,7 +288,7 @@ public class Player : MonoBehaviour
     public void DestroyPlayer()
     {
         // Destroy(gameObject);
-        playerInput.user.UnpairDevices();
+        if (playerInput.user != null) playerInput.user.UnpairDevices();
         playerInput.enabled = false;
         PlayerInputManager.instance.DisableJoining();
         gameObject.SetActive(false);

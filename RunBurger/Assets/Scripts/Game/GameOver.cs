@@ -24,7 +24,7 @@ public class GameOver : MonoBehaviour
     void Start()
     {
         // Starting the BGM
-        if (AudioManager.instance != null && bgmWinnerMusic != null) AudioManager.instance.PlayBGM(bgmWinnerMusic, bgmAudioClipVolume);
+        if (AudioManager.instance != null && bgmWinnerMusic != null && AudioManager.instance.GetAudioStateOnOff()) AudioManager.instance.PlayBGM(bgmWinnerMusic, bgmAudioClipVolume);
 
         localDebug = GameSessionController.instance == null;
 

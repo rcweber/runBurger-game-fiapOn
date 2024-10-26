@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PauseExit",
+                    "type": "Button",
+                    "id": "bb976fe9-233d-441c-85e5-a6d2e103fb41",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -790,6 +799,17 @@
                     "processors": "",
                     "groups": "PlayerOne",
                     "action": "BoostVelocity",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fbf2746-e468-4056-8e2e-7fdde601b4b5",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PlayerTwo;PlayerOne;Controller",
+                    "action": "PauseExit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
